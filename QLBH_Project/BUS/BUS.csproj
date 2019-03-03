@@ -45,7 +45,7 @@
     <Compile Include="Class1.cs" />
     <Compile Include="DauSachLoai_BUS.cs" />
     <Compile Include="DauSach_BUS.cs" />
-    <Compile Include="DocGia_BUS.cs" />
+    <Compile Include="Kh_BUS.cs" />
     <Compile Include="LoaiDocGia_BUS.cs" />
     <Compile Include="NCC_BUS.cs" />
     <Compile Include="NhanVien_BUS.cs" />
@@ -56,11 +56,11 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\DAO\DAO.csproj">
-      <Project>{e05cdd3f-1191-47ce-a11f-475d6c87bdf7}</Project>
+      <Project>{e5b2441a-49ec-4d87-acc5-ecd6c1df1fbd}</Project>
       <Name>DAO</Name>
     </ProjectReference>
     <ProjectReference Include="..\DTO\DTO.csproj">
-      <Project>{d78d123a-27a4-4caa-b217-81ddfab53cb2}</Project>
+      <Project>{a40bdd0a-5c66-4344-b102-2857fceca964}</Project>
       <Name>DTO</Name>
     </ProjectReference>
   </ItemGroup>

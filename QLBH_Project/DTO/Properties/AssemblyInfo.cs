@@ -1,7 +1,6 @@
-﻿#region
-using System.Reflection;
+﻿using System.Reflection;
+using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
-#endregion
 
 // General Information about an assembly is controlled through the following
 // set of attributes. Change these attribute values to modify the information
@@ -11,7 +10,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
 [assembly: AssemblyProduct("DTO")]
-[assembly: AssemblyCopyright("Copyright ©  2018")]
+[assembly: AssemblyCopyright("Copyright ©  2019")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
@@ -21,7 +20,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
-[assembly: Guid("d78d123a-27a4-4caa-b217-81ddfab53cb2")]
+[assembly: Guid("a40bdd0a-5c66-4344-b102-2857fceca964")]
 
 // Version information for an assembly consists of the following four values:
 //

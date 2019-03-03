@@ -8,107 +8,33 @@ using DTO;
 
 namespace DAO
 {
-    public class DocGia_DAO : ConnectDatabase
+    public class Kh_DAO : ConnectDatabase
     {
-        public bool themNguoiDung(NguoiDung ng)
+        public bool themKh(Kh ng)
         {
-            try
-            {
-                // Ket noi
-                var conn = GetConnString();
-
-                // Query string - vì mình để TV_ID là identity (giá trị tự tăng dần) nên ko cần fải insert ID
-                var sql =
-                    "INSERT INTO NguoiDung (HoVaTen,GioiTinh,Email,NgayTao) VALUES  (@HoVaTen, @GioiTinh, @Email, @NgayTao)";
-                SqlParameter[] pars =
-                {
-                    new SqlParameter("@HoVaTen", SqlDbType.NVarChar)
-                    {
-                        Value = ng.HoVaTen
-                    },
-                    new SqlParameter("@GioiTinh", SqlDbType.Bit)
-                    {
-                        Value = ng.GioiTinh
-                    },
-                    new SqlParameter("@Email", SqlDbType.VarChar)
-                    {
-                        Value = ng.Email
-                    },
-                    new SqlParameter("@NgayTao", SqlDbType.DateTime)
-                    {
-                        Value = ng.NgayTao
-                    }
-                };
-
-                var soLuongOK = SqlHelper.ExecuteNonQuery(conn, sql, CommandType.Text, pars);
-
-                if (soLuongOK > 0) return true;
-
-                return false;
-
-                // Query và kiểm tra
-            }
-            catch (Exception e)
-            {
-            }
-            finally
-            {
-                // Dong ket noi
-                _conn.Close();
-            }
+          
 
             return false;
         }
 
-        public bool ThemDocGia(DocGia dg)
+        public bool ThemKh(Kh dg)
         {
-            try
-            {
-                var conn = GetConnString();
-
-                // Query string - vì mình để TV_ID là identity (giá trị tự tăng dần) nên ko cần fải insert ID
-                var sql = "dbo.InsertDocGia";
-                SqlParameter[] pars =
-                {
-                    new SqlParameter("@maDG", SqlDbType.Int)
-                    {
-                        Value = dg.Ma
-                    },
-                    new SqlParameter("@maLoaiDG", SqlDbType.Int)
-                    {
-                        Value = dg.MaLoai
-                    }
-                };
-
-                var soLuongOK = SqlHelper.ExecuteNonQuery(conn, sql, CommandType.StoredProcedure, pars);
-
-                if (soLuongOK > 0) return true;
-
-                return false;
-            }
-            catch (Exception ex)
-            {
-            }
-            finally
-            {
-                // Dong ket noi
-                _conn.Close();
-            }
+          
 
             return false;
         }
 
-        public string TraVeGiaTriMaLoaiDG(string TenLoaiDocGia)
+        public string TraVeGiaTriMaLoaiDG(string TenLoaiKh)
         {
             try
             {
                 var conn = GetConnString();
-                var sql = "select MaLoaiDocGia from DocGiaLoai where TenLoaiDocGia = @tenloaiDG";
+                var sql = "select MaLoaiKh from KhLoai where TenLoaiKh = @tenloaiDG";
                 SqlParameter[] pars =
                 {
                     new SqlParameter("@tenloaiDG", SqlDbType.NVarChar)
                     {
-                        Value = TenLoaiDocGia
+                        Value = TenLoaiKh
                     }
                 };
                 var soLuongOK = SqlHelper.ExecuteScalar(conn, sql, CommandType.Text, pars);
@@ -132,7 +58,7 @@ namespace DAO
             try
             {
                 var conn = GetConnString();
-                var sql = "select MAX(MaNguoiDung) from NguoiDung";
+                var sql = "select MAX(MaKh) from Kh";
                 SqlParameter[] pars = { };
                 var soLuongOK = SqlHelper.ExecuteScalar(conn, sql, CommandType.Text, pars);
 
@@ -162,7 +88,7 @@ namespace DAO
 
                 // Query string - vì mình để TV_ID là identity (giá trị tự tăng dần) nên ko cần fải insert ID
                 var sql =
-                    "select a.MaDocGia,c.TenLoaiDocGia,b.HoVaTen,b.GioiTinh,b.Email,b.NgayTao from DocGia a, NguoiDung b, DocGiaLoai c where a.MaDocGia = b.MaNguoiDung and a.MaLoaiDocGia = c.MaLoaiDocGia";
+                    "select a.MaKh,c.TenLoaiKh,b.HoVaTen,b.GioiTinh,b.Email,b.NgayTao from Kh a, Kh b, KhLoai c where a.MaKh = b.MaKh and a.MaLoaiKh = c.MaLoaiKh";
                 SqlParameter[] pars = { };
 
 
@@ -186,17 +112,15 @@ namespace DAO
             return null;
         }
 
-        public static DataTable LoadBangDocGia()
+        public static DataTable LoadBangKh()
         {
-            var da = new SqlDataAdapter(
-                "select a.MaDocGia, c.TenLoaiDocGia, b.HoVaTen, b.GioiTinh, b.Email, b.NgayTao from DocGia a, NguoiDung b, DocGiaLoai c where a.MaDocGia = b.MaNguoiDung and a.MaLoaiDocGia = c.MaLoaiDocGia",
-                _conn);
+        
             var dtNCC = new DataTable();
-            da.Fill(dtNCC);
+           
             return dtNCC;
         }
 
-        public static DataSet LoadComBoBoxLoaiDocGia(string tenbang)
+        public static DataSet LoadComBoBoxLoaiKh(string tenbang)
         {
             try
             {
@@ -204,7 +128,7 @@ namespace DAO
                 var conn = GetConnString();
 
                 // Query string - vì mình để TV_ID là identity (giá trị tự tăng dần) nên ko cần fải insert ID
-                var sql = "SELECT * from DocGiaLoai";
+                var sql = "SELECT * from KhLoai";
                 return getdataset(sql, tenbang, _conn);
 
                 // Query và kiểm tra
@@ -216,17 +140,17 @@ namespace DAO
             return null;
         }
 
-        public bool XoaDocGia(int maDocGia)
+        public bool XoaKh(int maKh)
         {
             try
             {
                 var conn = GetConnString();
-                var sql = "DocGia_Xoa";
+                var sql = "Kh_Xoa";
                 SqlParameter[] pars =
                 {
                     new SqlParameter("@maCanXoa", SqlDbType.Int)
                     {
-                        Value = maDocGia
+                        Value = maKh
                     }
                 };
 
@@ -243,37 +167,37 @@ namespace DAO
             return false;
         }
 
-        public static bool KiemTraDuocMuon(int maDocGia)
+        public static bool KiemTraDuocMuon(int maKh)
         {
             var sql = "dbo.KiemTraDuocMuon";
             var pars = new List<SqlParameter>();
-            pars.Add(new SqlParameter("@MaDocGia", maDocGia));
+            pars.Add(new SqlParameter("@MaKh", maKh));
 
             var kq = SqlHelper.ExecuteScalar(GetConnString(), sql, CommandType.StoredProcedure, pars.ToArray()) as int?;
             return kq == null ? true : kq > 0 ? true : false;
         }
 
-        public static bool KiemTraDocGia(int maDocGia)
+        public static bool KiemTraKh(int maKh)
         {
-            var sql = "dbo.KiemTraDocGia";
+            var sql = "dbo.KiemTraKh";
             var pars = new List<SqlParameter>();
-            pars.Add(new SqlParameter("@MaDocGia", maDocGia));
+            pars.Add(new SqlParameter("@MaKh", maKh));
 
             var kq = SqlHelper.ExecuteScalar(GetConnString(), sql, CommandType.StoredProcedure, pars.ToArray()) as int?;
             return kq != null && kq > 0 ? true : false;
         }
 
-        public static int? LaySachMuonToiDa(int maDocGia)
+        public static int? LaySachMuonToiDa(int maKh)
         {
             var sql = "dbo.KiemTraDuocMuon";
             var pars = new List<SqlParameter>();
-            pars.Add(new SqlParameter("@MaDocGia", maDocGia));
+            pars.Add(new SqlParameter("@MaKh", maKh));
 
             var kq = SqlHelper.ExecuteScalar(GetConnString(), sql, CommandType.StoredProcedure, pars.ToArray()) as int?;
             return kq;
         }
 
-        public static bool KT_SachMuon(int maDocGia, int maDauSach)
+        public static bool KT_SachMuon(int maKh, int maDauSach)
         {
             var sql = "KiemTraSachMuon";
             var cmd = new SqlCommand();
@@ -281,7 +205,7 @@ namespace DAO
             _conn.Open();
             cmd.CommandText = sql;
             cmd.CommandType = CommandType.StoredProcedure;
-            cmd.Parameters.AddWithValue("@maDocGia", maDocGia).Direction = ParameterDirection.Input;
+            cmd.Parameters.AddWithValue("@maKh", maKh).Direction = ParameterDirection.Input;
 
             cmd.Parameters.AddWithValue("@maDauSach", maDauSach).Direction = ParameterDirection.Input;
             cmd.Parameters.Add("@kq", SqlDbType.Int).Direction = ParameterDirection.Output;

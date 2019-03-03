@@ -7,7 +7,7 @@ namespace BUS
 {
     public class NhanVien_BUS
     {
-        public static bool KiemTraNhanVien(NhanVien obj)
+        public static bool KiemTraNhanVien(Nv obj)
         {
             return NhanVien_DAO.KiemTraNhanVien(obj);
         }
